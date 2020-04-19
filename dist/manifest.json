@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Habr comments",
-  "description": "Collapse habr.com comments by rating",
+  "description": "Сворачивать комментарии habr.com по оценке",
   "version": "0.1",
   
   "icons": {
