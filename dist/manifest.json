@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "Habr comments",
+  "description": "Collapse habr.com comments by rating",
+  "version": "0.1",
+  
+  "icons": {
+    "48": "icon_48.png",
+    "96": "icon_96.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://habr.com/*", "https://m.habr.com/*"],
+      "js": ["js/vendor.js", "js/content_script.js"],
+      "css": ["css/style.css"]
+    }
+  ],
+
+  "permissions": [
+    "https://habr.com/*",
+    "https://m.habr.com/*"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "habr-comments",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "webpack --config webpack/webpack.dev.js --watch",
+    "prettier": "prettier --write \"src/**/*.ts\" \"webpack/**/*.js\"",
+    "build": "webpack --config webpack/webpack.prod.js"
+  },
+  "author": "ptol",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ptol/habr-comments"
+  },
+  "dependencies": {
+    "@types/lodash-es": "^4.17.3",
+    "jquery": "^3.3.1",
+    "lodash-es": "^4.17.15"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.104",
+    "@types/jquery": "^3.3.1",
+    "prettier": "^2.0.4",
+    "ts-loader": "^7.0.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-merge": "^4.2.2"
+  }
+}

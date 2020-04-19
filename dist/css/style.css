@@ -1,0 +1,9 @@
+.habr-comments-hightlight {
+    background-color: #fff7d7;
+}
+.habr-comments-scores {
+	width: 100%;
+}
+.habr-comments-hide {
+    display: none !important;
+}
