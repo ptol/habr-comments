@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Habr comments",
-  "description": "Сворачиваем комментарии habr.com по оценке",
-  "version": "0.1",
+  "name": "Habr comments highlight",
+  "description": "Подсвечиваем комментарии habr.com по оценке",
+  "version": "0.2",
   
   "icons": {
     "48": "icon_48.png",

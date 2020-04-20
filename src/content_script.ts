@@ -28,10 +28,12 @@ const cls = {
   hightlight: "habr-comments-hightlight",
   hide: "habr-comments-hide",
   openComment: "habr-comments-open-comment",
+  scores: "habr-comments-scores",
 }
 
 let isInit = false
 let intervalId: number
+let currentScore: number | undefined = undefined
 init()
 if (isMobile) {
   $(habrSelectors.mobileCommentLink).on("click", () => {
@@ -117,18 +119,27 @@ function parseContentList(
   })
 }
 
-function hightlightScore(
+function highlightScores() {
+  $(`.${cls.scores} a`).each(function () {
+    $(this).toggleClass(
+      cls.hightlight,
+      currentScore !== undefined && parseInt($(this).text()) >= currentScore,
+    )
+  })
+}
+
+function highlightComments(
   trees: CommentTree[],
-  score: number,
   top: boolean,
 ): {directChildHasGoodScore: boolean; anyChildHasGoodScore: boolean} {
+  highlightScores()
   const childrenGoodScores = trees.map((tree) => {
-    const goodScore = tree.score >= score
+    const goodScore = currentScore === undefined || tree.score >= currentScore
     tree.$comment
       .find(habrSelectors.commentHead)
-      .toggleClass(cls.hightlight, goodScore)
+      .toggleClass(cls.hightlight, currentScore !== undefined && goodScore)
 
-    const childScores = hightlightScore(tree.children, score, false)
+    const childScores = highlightComments(tree.children, false)
     toggleComment(
       tree.$comment,
       goodScore || childScores.directChildHasGoodScore,
@@ -163,7 +174,7 @@ function appendScores(
     return cls.positive
   }
 
-  const $scores = tag("div", {class: "habr-comments-scores", text: "Оценки "})
+  const $scores = tag("div", {class: cls.scores, text: "Оценки "})
   const scoresSorted = sortBy(toPairs(scoreCounts), (x) => -x[0])
 
   if (!scoresSorted.length) return
@@ -174,9 +185,10 @@ function appendScores(
       class: `${cls.counter} ${getScoreCls(score)}`,
       href: "#",
       text: score,
-    }).css({"margin-right": "2px", "margin-left": "3px"})
+    }).css({"padding-right": "2px", "padding-left": "3px"})
     anchor.on("click", function () {
-      hightlightScore(topComments, score, true)
+      currentScore = currentScore !== score ? score : undefined
+      highlightComments(topComments, true)
       return false
     })
     $scores.append(anchor)
