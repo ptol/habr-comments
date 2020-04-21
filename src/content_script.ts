@@ -22,9 +22,9 @@ const habrSelectors = {
 }
 
 const cls = {
-  negative: m("voting-wjt__counter_negative", "tm-comment-head-score_negative"),
-  positive: m("voting-wjt__counter_positive", "tm-comment-head-score_positive"),
-  counter: m("", "tm-comment-head-score"),
+  negative: "habr-comments-negative",
+  positive: "habr-comments-positive",
+  zero: "habr-comments-zero",
   hightlight: "habr-comments-hightlight",
   hide: "habr-comments-hide",
   openComment: "habr-comments-open-comment",
@@ -119,11 +119,17 @@ function parseContentList(
   })
 }
 
+function isGoodScore(score: number){
+  return currentScore === undefined ||
+    currentScore >= 0 && score >= currentScore ||
+    currentScore < 0 && score <= currentScore
+}
+
 function highlightScores() {
   $(`.${cls.scores} a`).each(function () {
     $(this).toggleClass(
       cls.hightlight,
-      currentScore !== undefined && parseInt($(this).text()) >= currentScore,
+      currentScore !== undefined && isGoodScore(parseInt($(this).text())),
     )
   })
 }
@@ -134,7 +140,7 @@ function highlightComments(
 ): {directChildHasGoodScore: boolean; anyChildHasGoodScore: boolean} {
   highlightScores()
   const childrenGoodScores = trees.map((tree) => {
-    const goodScore = currentScore === undefined || tree.score >= currentScore
+    const goodScore = isGoodScore(tree.score)
     tree.$comment
       .find(habrSelectors.commentHead)
       .toggleClass(cls.hightlight, currentScore !== undefined && goodScore)
@@ -170,7 +176,7 @@ function appendScores(
 ) {
   function getScoreCls(rating: number) {
     if (rating < 0) return cls.negative
-    if (rating === 0) return ""
+    if (rating === 0) return cls.zero
     return cls.positive
   }
 
@@ -182,10 +188,10 @@ function appendScores(
   scoresSorted.forEach(([key, count]) => {
     const score = +key
     const anchor = tag("a", {
-      class: `${cls.counter} ${getScoreCls(score)}`,
+      class: getScoreCls(score),
       href: "#",
       text: score,
-    }).css({"padding-right": "2px", "padding-left": "3px"})
+    })
     anchor.on("click", function () {
       currentScore = currentScore !== score ? score : undefined
       highlightComments(topComments, true)

@@ -4,6 +4,23 @@
 .habr-comments-scores {
 	width: 100%;
 }
+
+.habr-comments-scores a {
+    padding: 3px;
+    font-weight: bold;
+}
+.habr-comments-scores a.habr-comments-positive {
+    color: #6c9007;
+}
+
+.habr-comments-scores a.habr-comments-negative {
+    color: #d53c30;
+}
+
+.habr-comments-scores a.habr-comments-zero {
+    color: #548eaa;
+}
+
 .habr-comments-hide {
     display: none !important;
 }
