@@ -119,10 +119,12 @@ function parseContentList(
   })
 }
 
-function isGoodScore(score: number){
-  return currentScore === undefined ||
-    currentScore >= 0 && score >= currentScore ||
-    currentScore < 0 && score <= currentScore
+function isGoodScore(score: number) {
+  return (
+    currentScore === undefined ||
+    (currentScore >= 0 && score >= currentScore) ||
+    (currentScore < 0 && score <= currentScore)
+  )
 }
 
 function highlightScores() {
