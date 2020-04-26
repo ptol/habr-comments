@@ -16,7 +16,7 @@ const habrSelectors = {
   commentReplayForm: m(".comment__reply-form", ".comment__reply-form"),
   itemComment: m(".content-list__item_comment", ".tm-comment"),
   comment: m(".comment", ".tm-comment__comment"),
-  score: m(".js-score", ".tm-comment-head__score"),
+  score: m(".js-score", ".tm-votes-score"),
   nestedCommentsContainer: m(".content-list_nested-comments", ""),
   mobileCommentLink: "a.tm-article-comments",
 }
