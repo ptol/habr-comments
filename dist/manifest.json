@@ -3,7 +3,7 @@
 
   "name": "Habr comments highlight",
   "description": "Подсвечиваем комментарии habr.com по оценке",
-  "version": "0.4",
+  "version": "0.5",
   
   "icons": {
     "48": "icon_48.png",
